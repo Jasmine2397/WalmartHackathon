@@ -1,9 +1,4 @@
-/**
- * Inventory Model Fields
- * Inventory Price -> Cost Price
- */
-
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const inventorySchema = new mongoose.Schema({
   name: {
@@ -11,12 +6,20 @@ const inventorySchema = new mongoose.Schema({
     required: true
   },
 
-  products: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true
-    }
-  ],
+  quantity: {
+    type: Number,
+    default: 0
+  },
+
+  category: {
+    type: String,
+    default: 'general'
+  },
+
+  supplier: {
+    type: String,
+    default: 'N/A'
+  },
 
   costPrice: {
     type: Number,
@@ -33,12 +36,17 @@ const inventorySchema = new mongoose.Schema({
     default: 0
   },
 
+  products: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true
+  }],
+
   storage: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Storage',
-      default: null
-    }
-  ],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Storage',
+    default: null
+  }],
 
   inventoryLocation: {
     type: {
@@ -52,7 +60,7 @@ const inventorySchema = new mongoose.Schema({
       required: true
     }
   }
-}, { timestamps: true })
+}, { timestamps: true });
 
-const inventoryModel = mongoose.model('Inventory', inventorySchema)
-module.exports = inventoryModel
+const inventoryModel = mongoose.model('Inventory', inventorySchema);
+module.exports = inventoryModel;

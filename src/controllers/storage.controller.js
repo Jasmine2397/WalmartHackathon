@@ -45,24 +45,31 @@ const deleteStorage = async (req, res) => {
 };
 
 const addProductToStorage = async (req, res) => {
-    logger.info(`[${CONTEXT}] Adding product ${req.body.productId} to storage ${req.params.id}`);
-    const storage = await storageService.addProductToStorage(req.params.id, req.body.productId);
-    res.status(StatusCodes.OK).json(ApiResponse.success('Product added to storage successfully', { storage }));
-    logger.info(`[${CONTEXT}] Product added to storage successfully.`);
+  logger.info(`[${CONTEXT}] Adding product ${req.body.productId} to storage ${req.params.id}`);
+  const storage = await storageService.addProductToStorage(req.params.id, req.body.productId);
+  res.status(StatusCodes.OK).json(ApiResponse.success('Product added to storage successfully', { storage }));
+  logger.info(`[${CONTEXT}] Product added to storage successfully.`);
 };
 
 const removeProductFromStorage = async (req, res) => {
-    logger.info(`[${CONTEXT}] Removing product ${req.body.productId} from storage ${req.params.id}`);
-    const storage = await storageService.removeProductFromStorage(req.params.id, req.body.productId);
-    res.status(StatusCodes.OK).json(ApiResponse.success('Product removed from storage successfully', { storage }));
-    logger.info(`[${CONTEXT}] Product removed from storage successfully.`);
+  logger.info(`[${CONTEXT}] Removing product ${req.body.productId} from storage ${req.params.id}`);
+  const storage = await storageService.removeProductFromStorage(req.params.id, req.body.productId);
+  res.status(StatusCodes.OK).json(ApiResponse.success('Product removed from storage successfully', { storage }));
+  logger.info(`[${CONTEXT}] Product removed from storage successfully.`);
 };
 
 const getStorageUtilization = async (req, res) => {
-    logger.info(`[${CONTEXT}] Getting utilization for storage ${req.params.id}`);
-    const utilization = await storageService.getStorageUtilization(req.params.id);
-    res.status(StatusCodes.OK).json(ApiResponse.success('Storage utilization fetched successfully', { utilization }));
-    logger.info(`[${CONTEXT}] Storage utilization fetched successfully.`);
+  logger.info(`[${CONTEXT}] Getting utilization for storage ${req.params.id}`);
+  const utilization = await storageService.getStorageUtilization(req.params.id);
+  res.status(StatusCodes.OK).json(ApiResponse.success('Storage utilization fetched successfully', { utilization }));
+  logger.info(`[${CONTEXT}] Storage utilization fetched successfully.`);
+};
+
+const getWarehouseOverview = async (req, res) => {
+  logger.info(`[${CONTEXT}] Fetching warehouse overview data`);
+  const overview = await storageService.getWarehouseOverview();
+  res.status(StatusCodes.OK).json(ApiResponse.success('Warehouse overview fetched successfully', { overview }));
+  logger.info(`[${CONTEXT}] Warehouse overview fetched successfully.`);
 };
 
 module.exports = {
@@ -73,5 +80,6 @@ module.exports = {
   deleteStorage,
   addProductToStorage,
   removeProductFromStorage,
-  getStorageUtilization
+  getStorageUtilization,
+  getWarehouseOverview
 };

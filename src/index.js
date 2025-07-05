@@ -1,28 +1,45 @@
-const express = require('express')
-const cookieParser = require('cookie-parser')
+require('dotenv').config();
 
-const { PORT } = require('./config/server.config')
-const apiRouter = require('./routes')
-const errorMw = require('./middlewares/error.middleware')
-const connectDB = require('./config/db.config')
+const express = require('express');
+const cors = require('cors'); // ← import it
 
-const app = express()
-app.use(express.json())
-app.use(express.text())
-app.use(cookieParser())
-app.use(express.urlencoded({ extended: true }))
+const app = express();
+app.use(cors());              // ← allow requests from all origins
+app.use(express.json());
 
+const cookieParser = require('cookie-parser');
+
+const connectDB = require('./config/db.config');
+const { PORT } = require('./config/server.config');
+const apiRouter = require('./routes');
+const errorMw = require('./middlewares/error.middleware');
+
+// Middlewares
+app.use(express.json());
+app.use(express.text());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Health check route
 app.get('/ping', (req, res) => {
-  res.status(200).json({
-    message: 'Pong'
-  })
-})
+  res.status(200).json({ message: 'Pong' });
+});
 
-app.use('/api', apiRouter)
+// API routes
+app.use('/api', apiRouter);
 
-app.use(errorMw)
+// Error handler
+app.use(errorMw);
 
-app.listen(PORT, async () => {
-  console.log(`Express app connected to http://localhost:${PORT} ✅`)
-  await connectDB()
-})
+// Start server only after DB connects
+(async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`✅ Express server running at http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error('❌ Server startup failed:', err.message);
+    process.exit(1);
+  }
+})();
