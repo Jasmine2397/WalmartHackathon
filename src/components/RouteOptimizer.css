@@ -1,0 +1,26 @@
+.route-optimizer {
+  padding: 1rem;
+  background-color: #e0f2fe;
+  border-radius: 10px;
+}
+
+.route-optimizer input {
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.route-optimizer button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.route-output {
+  margin-top: 1rem;
+  font-weight: bold;
+}

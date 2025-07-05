@@ -1,0 +1,22 @@
+.retail-spotlight {
+  background-color: #fff7ed;
+  padding: 2rem 1.5rem;
+  border-left: 6px solid #f97316;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  margin-top: 2rem;
+  animation: fadeIn 0.6s ease;
+}
+
+.retail-spotlight h3 {
+  color: #b45309;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.spotlight-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}

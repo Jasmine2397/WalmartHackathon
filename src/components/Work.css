@@ -1,0 +1,21 @@
+.workforce-analyzer {
+  padding: 1rem;
+  background-color: #f0fdf4;
+  border-radius: 10px;
+}
+
+.workforce-analyzer select {
+  margin: 0.7rem 0;
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.result {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #064e3b;
+  background-color: #d1fae5;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}

@@ -1,0 +1,18 @@
+.heatmap-section {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.heatmap-section h4 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.heatmap-section p {
+  color: #666;
+  font-size: 0.95rem;
+}

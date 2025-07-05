@@ -1,0 +1,21 @@
+.map-tracker {
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 10px;
+}
+
+.map-tracker h2 {
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.map-placeholder {
+  background-color: #d1d5db;
+  height: 200px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  color: #374151;
+}
