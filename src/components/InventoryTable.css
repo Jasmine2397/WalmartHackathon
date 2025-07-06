@@ -1,5 +1,4 @@
-/* InventoryTable.css */
-
+/* 📦 Outer inventory card */
 .inventory-section {
   padding: 1.5rem 2rem;
   background-color: #f9f9f9;
@@ -10,27 +9,36 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* 📌 Header */
 .inventory-section h3 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
   color: #333;
 }
 
-.inventory-section input[type="text"] {
+/* 🔍 Search + Table wrapper */
+.search-and-table {
+  width: 100%;
+}
+
+/* 🔍 Aligned search input */
+.inventory-search {
   width: 100%;
   padding: 0.6rem 0.9rem;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
   border-radius: 8px;
+  border: 1px solid #ccc;
   font-size: 0.95rem;
+  box-sizing: border-box;
   transition: border-color 0.3s ease;
 }
 
-.inventory-section input[type="text"]:focus {
+.inventory-search:focus {
   border-color: #0078D4;
   outline: none;
 }
 
+/* 🧾 Stock table styling */
 .stock-table {
   width: 100%;
   border-collapse: collapse;
@@ -58,6 +66,7 @@
   color: #333;
 }
 
+/* 📝 Editable quantity field */
 .stock-table input[type="number"] {
   width: 60px;
   padding: 0.3rem;
@@ -67,6 +76,7 @@
   text-align: center;
 }
 
+/* 📱 Mobile Responsiveness */
 @media screen and (max-width: 768px) {
   .inventory-section {
     padding: 1rem;

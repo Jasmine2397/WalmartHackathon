@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './InventoryPages.css';
 import InventoryTable from '../components/InventoryTable';
 import DemandForecast from '../components/DemandForecast';
-import InventoryActions from '../components/InventoryActions';
 import WarehouseOverview from '../components/WarehouseOverview';
 
 function InventoryPages() {
@@ -18,38 +17,26 @@ function InventoryPages() {
   const [selectedRegion, setSelectedRegion] = useState('');
 
   useEffect(() => {
-    // 📦 Fetch inventory items
     fetch('http://localhost:5000/api/v1/inventory')
       .then((res) => res.json())
       .then((data) => {
         const inventoryData = Array.isArray(data) ? data : data.inventories || [];
         setItems(inventoryData);
-        console.log('Fetched inventory:', inventoryData);
       })
-      .catch((err) => {
-        console.error('Failed to fetch inventory:', err);
-        setItems([]);
-      });
+      .catch(() => setItems([]));
 
-    // 🏭 Fetch warehouse list
     fetch('/api/storage/overview')
       .then((res) => res.json())
       .then((data) => {
         const overview = data.data.overview || [];
-
-        // 🧠 Sort by available space (descending)
-        const sortedList = [...overview].sort((a, b) => {
+        const sorted = [...overview].sort((a, b) => {
           const aUsage = a.totalCapacity ? a.capacityUsed / a.totalCapacity : 0;
           const bUsage = b.totalCapacity ? b.capacityUsed / b.totalCapacity : 0;
           return aUsage - bUsage;
         });
-
-        setWarehouseList(sortedList);
+        setWarehouseList(sorted);
       })
-      .catch((err) => {
-        console.error('Failed to fetch warehouses:', err);
-        setWarehouseList([]);
-      });
+      .catch(() => setWarehouseList([]));
   }, []);
 
   const handleChange = (e) => {
@@ -70,118 +57,114 @@ function InventoryPages() {
           warehouse: form.warehouse
         })
       });
-
       const newItem = await res.json();
       setItems((prev) => [...prev, newItem]);
-      setForm({
-        name: '',
-        quantity: '',
-        category: '',
-        supplier: '',
-        warehouse: ''
-      });
+      setForm({ name: '', quantity: '', category: '', supplier: '', warehouse: '' });
     } catch (err) {
       console.error('Failed to add item:', err);
     }
   };
 
-  // 🔍 Extract unique region list
   const regions = [...new Set(warehouseList.map(wh => wh.region))];
-
-  // 🧭 Filter warehouse list by selected region
   const filteredWarehouses = selectedRegion
     ? warehouseList.filter(wh => wh.region === selectedRegion)
     : warehouseList;
 
   return (
-    <div className="inventory-container">
-      <h2>📦 Inventory Tracker</h2>
+    <>
+      <div className="inventory-container">
+        
 
-      <InventoryActions
-        onRestock={() => console.log('Restock triggered')}
-        onExport={() => console.log('Export triggered')}
-      />
+        <div className="grid-row">
+          {/* Left column */}
+          <div className="column-left">
+            <form className="inventory-form" onSubmit={handleSubmit}>
+              <input
+                name="name"
+                placeholder="Item Name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="quantity"
+                type="number"
+                placeholder="Quantity"
+                value={form.quantity}
+                onChange={handleChange}
+                required
+              />
+              <input
+                name="category"
+                placeholder="Category"
+                value={form.category}
+                onChange={handleChange}
+              />
+              <select
+                name="warehouse"
+                value={form.warehouse}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Warehouse</option>
+                {filteredWarehouses.map((wh) => {
+                  const utilization =
+                    wh.totalCapacity && wh.capacityUsed
+                      ? (wh.capacityUsed / wh.totalCapacity) * 100
+                      : 0;
+                  const label = `${wh.name} (${wh.region}) – ${utilization.toFixed(0)}% used${utilization >= 100 ? ' 🚫' : ''}`;
+                  return (
+                    <option key={wh.id} value={wh.id} disabled={utilization >= 100}>
+                      {label}
+                    </option>
+                  );
+                })}
+              </select>
+              <input
+                name="supplier"
+                placeholder="Supplier Name"
+                value={form.supplier}
+                onChange={handleChange}
+              />
+              <button type="submit">Add Item</button>
+            </form>
+          </div>
 
-      {/* 🗺 Region Selector */}
-      {regions.length > 0 && (
-        <div style={{ marginBottom: '15px' }}>
-          <label><strong>Filter by Region:</strong></label>{' '}
-          <select
-            value={selectedRegion}
-            onChange={(e) => setSelectedRegion(e.target.value)}
-            style={{ padding: '8px', marginTop: '5px', minWidth: '200px' }}
-          >
-            <option value="">All Regions</option>
-            {regions.map((region) => (
-              <option key={region} value={region}>{region}</option>
-            ))}
-          </select>
+          {/* Right column */}
+          <div className="column-right-group">
+            <h3 className="section-heading">📈 AI Demand Forecast</h3>
+            <div className="column-right">
+              <DemandForecast />
+            </div>
+          </div>
         </div>
-      )}
 
-      <form className="inventory-form" onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Item Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="quantity"
-          type="number"
-          placeholder="Quantity"
-          value={form.quantity}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="category"
-          placeholder="Category"
-          value={form.category}
-          onChange={handleChange}
-        />
+        {/* Region Filter */}
+        {regions.length > 0 && (
+          <div className="region-filter">
+            <label><strong>Filter by Region:</strong></label>{' '}
+            <select
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value)}
+            >
+              <option value="">All Regions</option>
+              {regions.map((region) => (
+                <option key={region} value={region}>{region}</option>
+              ))}
+            </select>
+          </div>
+        )}
+      </div>
 
-        {/* 🧠 Filtered Warehouse Dropdown with Utilization */}
-        <select
-          name="warehouse"
-          value={form.warehouse}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Warehouse</option>
-          {filteredWarehouses.map((wh) => {
-            const utilization =
-              wh.totalCapacity && wh.capacityUsed
-                ? (wh.capacityUsed / wh.totalCapacity) * 100
-                : 0;
-            const isFull = utilization >= 100;
-            const label = `${wh.name} (${wh.region}) – ${utilization.toFixed(0)}% used${isFull ? ' 🚫' : ''}`;
+      {/* Full-width sections */}
+      <div className="stock-overview full-width">
+        <InventoryTable items={items} />
+      </div>
 
-            return (
-              <option key={wh.id} value={wh.id} disabled={isFull}>
-                {label}
-              </option>
-            );
-          })}
-        </select>
-
-        <input
-          name="supplier"
-          placeholder="Supplier Name"
-          value={form.supplier}
-          onChange={handleChange}
-        />
-        <button type="submit">Add Item</button>
-      </form>
-
-      <InventoryTable items={items} />
-      <DemandForecast />
-
-      <div style={{ marginTop: '60px' }}>
+      <div className="warehouse-section full-width">
         <WarehouseOverview />
       </div>
-    </div>
+    </>
   );
 }
 
