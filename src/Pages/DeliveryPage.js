@@ -1,21 +1,46 @@
 import React from "react";
 import "./DeliveryPage.css";
-import Navbar from "../components/Navbar";
+//import Navbar from "../components/Navbar";
 import MapTracker from "../components/MapTracker";
 import RouteOptimizer from "../components/RouteOptimizer";
 import ETABox from "../components/ETABox";
 import ShipmentManager from "../components/ShipmentManager";
+import DeliveryKPIs from "../components/DeliveryKPIs";
+import DeliveryChart from "../components/DeliveryChart";
 
 const DeliveryPage = () => {
   return (
     <div className="delivery-page">
-      <h1>🚛 Delivery Optimization Dashboard</h1>
-      <div className="delivery-grid">
-        <div className="component-card"><MapTracker /></div>
-        <div className="component-card"><RouteOptimizer /></div>
-        <div className="component-card"><ETABox /></div>
-        <div className="component-card"><ShipmentManager /></div>
+     
+
+      <div className="page-header">
+        <h1>🚚 Delivery Optimization Dashboard</h1>
+        <p className="subheading">Real-time delivery tracking, route planning, and operational insights</p>
       </div>
+
+      {/* KPI Cards */}
+      <div className="kpi-section">
+        <DeliveryKPIs />
+      </div>
+
+      {/* Map + Route Optimizer */}
+      <div className="two-column-grid">
+        <div className="card"><MapTracker /></div>
+        <div className="card"><RouteOptimizer /></div>
+      </div>
+
+      {/* ETA + Shipment Table */}
+      <div className="two-column-grid">
+        <div className="card"><ETABox /></div>
+        <div className="card"><ShipmentManager /></div>
+      </div>
+
+      {/* Delivery Trend Chart */}
+      <div className="card full-width">
+        <DeliveryChart />
+      </div>
+
+      <footer className="last-updated">Last updated: {new Date().toLocaleTimeString()}</footer>
     </div>
   );
 };
