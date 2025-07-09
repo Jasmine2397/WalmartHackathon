@@ -1,21 +1,36 @@
 .map-tracker {
-  padding: 1rem;
-  background-color: #f3f4f6;
-  border-radius: 10px;
+  background-color: #f9fafe;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
 }
 
+/* Optional title if using one */
 .map-tracker h2 {
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
+/* Placeholder for when map isn’t loaded or no route is defined */
 .map-placeholder {
-  background-color: #d1d5db;
-  height: 200px;
-  border-radius: 8px;
+  background-color: #e5e7eb;
+  height: 280px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 500;
   color: #374151;
+  font-size: 1rem;
+}
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+.map-container {
+  height: 300px; /* or match your layout */
 }

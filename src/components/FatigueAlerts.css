@@ -1,0 +1,57 @@
+.fatigue-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.fatigue-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.fatigue-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fatigue-table th,
+.fatigue-table td {
+  padding: 0.7rem;
+  font-size: 0.9rem;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.risk-tag {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.risk-tag.high {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.risk-tag.moderate {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.risk-tag.critical {
+  background-color: #fde2e2;
+  color: #b91c1c;
+}
+
+.fatigue-note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #0071ce;
+  text-align: center;
+}

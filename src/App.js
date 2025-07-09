@@ -8,12 +8,11 @@ import {
 
 import { AppProvider } from './components/AppContext';
 
-
 // Page Components
 import HomePage from './Pages/HomePage';
 import InventoryPages from './Pages/InventoryPages';
 import DeliveryPage from './Pages/DeliveryPage';
-// import WagePage from './Pages/WagePage'; // Uncomment when WagePage is rebuilt
+import WagePage from './Pages/WagePage'; // ✅ Enabled WagePage route
 import RestockingPage from './Pages/RestockingPage';
 import AlertsPage from './Pages/AlertsPage';
 import TransportPage from './Pages/TransportPage';
@@ -24,7 +23,7 @@ import HelpPage from './Pages/HelpPage';
 import './Pages/InventoryPages.css';
 import './Pages/HomePage.css';
 import './Pages/DeliveryPage.css';
-// import './Pages/WagePage.css';
+import './Pages/WagePage.css'; // ✅ Enabled WagePage styles
 import './App.css';
 
 function AppLayout() {
@@ -32,7 +31,7 @@ function AppLayout() {
 
   return (
     <>
-      {/* New Sleek Navbar */}
+      {/* Global Navbar */}
       <header className="navbar">
         <div className="navbar-content">
           <div className="logo">🛒 name</div>
@@ -50,12 +49,12 @@ function AppLayout() {
         </div>
       </header>
 
-      {/* Route Definitions */}
+      {/* Routes */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/inventory" element={<InventoryPages />} />
         <Route path="/delivery" element={<DeliveryPage />} />
-        {/* <Route path="/wage" element={<WagePage />} /> */}
+        <Route path="/wage" element={<WagePage />} /> {/* ✅ Live route */}
         <Route path="/restocking" element={<RestockingPage />} />
         <Route path="/alerts" element={<AlertsPage />} />
         <Route path="/transport" element={<TransportPage />} />
@@ -74,7 +73,7 @@ function App() {
   return (
     <Router>
       <AppProvider>
-      <AppLayout />
+        <AppLayout />
       </AppProvider>
     </Router>
   );

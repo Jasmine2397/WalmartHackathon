@@ -4,23 +4,56 @@
   min-height: 100vh;
 }
 
+/* Header Styling */
 .delivery-page h1 {
   text-align: center;
   font-size: 2.2rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   letter-spacing: 0.5px;
 }
 
-.delivery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 2rem;
-  padding: 0 1rem;
+.page-header {
+  margin-bottom: 2rem;
 }
 
-.component-card {
+.subheading {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* Section Spacing Utility */
+.card,
+.kpi-section,
+.two-column-grid,
+.full-width {
+  margin-bottom: 2rem;
+}
+
+/* KPI Layout */
+.kpi-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* Grid Sections */
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Component Styling */
+.card {
   background: white;
   padding: 1.5rem;
   border-radius: 12px;
@@ -28,12 +61,25 @@
   transition: transform 0.2s ease;
 }
 
-.component-card:hover {
+.card:hover {
   transform: scale(1.01);
 }
 
+/* Footer */
+.last-updated {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 2rem;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .delivery-page {
     padding: 1rem;
+  }
+
+  .two-column-grid {
+    grid-template-columns: 1fr;
   }
 }

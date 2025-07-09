@@ -1,0 +1,55 @@
+.insights-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.insights-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.insights-label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.insights-value {
+  font-weight: bold;
+  color: #1f2937;
+  margin-left: 0.3rem;
+}
+
+.insights-status {
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+}
+
+.insights-status.understaffed {
+  background-color: #fde2e2;
+  color: #b91c1c;
+}
+
+.insights-status.overstaffed {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.insights-suggestion {
+  font-size: 0.9rem;
+  color: #0071ce;
+  text-align: center;
+}

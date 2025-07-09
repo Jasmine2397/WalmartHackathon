@@ -65,106 +65,101 @@ function InventoryPages() {
     }
   };
 
-  const regions = [...new Set(warehouseList.map(wh => wh.region))];
+  const regions = [...new Set(warehouseList.map((wh) => wh.region))];
   const filteredWarehouses = selectedRegion
-    ? warehouseList.filter(wh => wh.region === selectedRegion)
+    ? warehouseList.filter((wh) => wh.region === selectedRegion)
     : warehouseList;
 
   return (
-    <>
-      <div className="inventory-container">
-        
-
-        <div className="grid-row">
-          {/* Left column */}
-          <div className="column-left">
-            <form className="inventory-form" onSubmit={handleSubmit}>
-              <input
-                name="name"
-                placeholder="Item Name"
-                value={form.name}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="quantity"
-                type="number"
-                placeholder="Quantity"
-                value={form.quantity}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="category"
-                placeholder="Category"
-                value={form.category}
-                onChange={handleChange}
-              />
-              <select
-                name="warehouse"
-                value={form.warehouse}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Warehouse</option>
-                {filteredWarehouses.map((wh) => {
-                  const utilization =
-                    wh.totalCapacity && wh.capacityUsed
-                      ? (wh.capacityUsed / wh.totalCapacity) * 100
-                      : 0;
-                  const label = `${wh.name} (${wh.region}) – ${utilization.toFixed(0)}% used${utilization >= 100 ? ' 🚫' : ''}`;
-                  return (
-                    <option key={wh.id} value={wh.id} disabled={utilization >= 100}>
-                      {label}
-                    </option>
-                  );
-                })}
-              </select>
-              <input
-                name="supplier"
-                placeholder="Supplier Name"
-                value={form.supplier}
-                onChange={handleChange}
-              />
-              <button type="submit">Add Item</button>
-            </form>
-          </div>
-
-          {/* Right column */}
-          <div className="column-right-group">
-            <h3 className="section-heading">📈 AI Demand Forecast</h3>
-            <div className="column-right">
-              <DemandForecast />
-            </div>
-          </div>
-        </div>
-
-        {/* Region Filter */}
-        {regions.length > 0 && (
-          <div className="region-filter">
-            <label><strong>Filter by Region:</strong></label>{' '}
-            <select
-              value={selectedRegion}
-              onChange={(e) => setSelectedRegion(e.target.value)}
-            >
-              <option value="">All Regions</option>
-              {regions.map((region) => (
-                <option key={region} value={region}>{region}</option>
-              ))}
-            </select>
-          </div>
-        )}
+    <div className="inventory-page">
+      <div className="page-header">
+        <h1>📦 Inventory Management</h1>
+        <p className="subheading">Track stock levels, optimize storage, and forecast demand intelligently.</p>
       </div>
 
-      {/* Full-width sections */}
-      <div className="stock-overview full-width">
+      <div className="two-column-grid">
+        <div className="card">
+          <h3 className="section-heading">📥 Add New Inventory</h3>
+          <form className="inventory-form" onSubmit={handleSubmit}>
+            <input
+              name="name"
+              placeholder="Item Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="quantity"
+              type="number"
+              placeholder="Quantity"
+              value={form.quantity}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="category"
+              placeholder="Category"
+              value={form.category}
+              onChange={handleChange}
+            />
+            <select
+              name="warehouse"
+              value={form.warehouse}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Warehouse</option>
+              {filteredWarehouses.map((wh) => {
+                const utilization =
+                  wh.totalCapacity && wh.capacityUsed
+                    ? (wh.capacityUsed / wh.totalCapacity) * 100
+                    : 0;
+                const label = `${wh.name} (${wh.region}) – ${utilization.toFixed(0)}% used${utilization >= 100 ? ' 🚫' : ''}`;
+                return (
+                  <option key={wh.id} value={wh.id} disabled={utilization >= 100}>
+                    {label}
+                  </option>
+                );
+              })}
+            </select>
+            <input
+              name="supplier"
+              placeholder="Supplier Name"
+              value={form.supplier}
+              onChange={handleChange}
+            />
+            <button type="submit">Add Item</button>
+          </form>
+        </div>
+
+        <div className="card">
+          <h3 className="section-heading">📈 AI Demand Forecast</h3>
+          <DemandForecast />
+        </div>
+      </div>
+
+      {regions.length > 0 && (
+        <div className="region-filter">
+          <label><strong>Filter by Region:</strong></label>{' '}
+          <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
+            <option value="">All Regions</option>
+            {regions.map((region) => (
+              <option key={region} value={region}>{region}</option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      <div className="card full-width">
+        <h3 className="section-heading">📋 Current Inventory Table</h3>
         <InventoryTable items={items} />
       </div>
 
-      <div className="warehouse-section full-width">
+      <div className="card full-width">
+        <h3 className="section-heading">🏢 Warehouse Overview</h3>
         <WarehouseOverview />
       </div>
-    </>
+    </div>
   );
 }
 

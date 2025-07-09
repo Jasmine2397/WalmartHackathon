@@ -1,55 +1,58 @@
-/* 🧱 Container for header + form + forecast */
-.inventory-container {
+.inventory-page {
   padding: 2rem;
-  max-width: 1200px;
-  margin: auto;
+  background-color: #f9fafb;
+  min-height: 100vh;
 }
 
-/* 🧊 Two-column layout */
-.grid-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 1.5rem;
+.page-header {
+  text-align: center;
   margin-bottom: 2rem;
 }
 
-.column-left,
-.column-right {
-  flex: 1;
-  min-width: 320px;
-  background-color: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
+.page-header h1 {
+  font-size: 1.8rem;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
 }
 
-/* Wrapper around demand heading and forecast card */
-.column-right-group {
-  flex: 1;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
+.subheading {
+  font-size: 1rem;
+  color: #6b7280;
 }
 
-/* 🎯 Headings like "Inventory Tracker" and "Demand Forecast" */
-.section-heading {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: #333;
-  padding-left: 0.25rem;
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-/* 📱 Responsive stacking */
 @media (max-width: 768px) {
-  .grid-row {
-    flex-direction: column;
+  .two-column-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-/* 🧾 Inventory Form styling */
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.full-width {
+  grid-column: 1 / -1;
+  margin-top: 2rem;
+}
+
+.section-heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+/* Inventory Form */
 .inventory-form {
   display: flex;
   flex-direction: column;
@@ -58,55 +61,43 @@
 
 .inventory-form input,
 .inventory-form select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
 }
 
 .inventory-form button {
-  padding: 0.6rem;
-  font-weight: bold;
-  background-color: #1f8ef1;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  background-color: #005cb9;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.25s ease;
 }
 
 .inventory-form button:hover {
-  background-color: #0f6fbe;
+  background-color: #0071ce;
 }
 
-/* 🌍 Region filter */
+/* Region Filter */
 .region-filter {
-  margin-bottom: 1.5rem;
-  color: aqua;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.region-filter label {
+  font-size: 0.95rem;
+  color: #333;
+  margin-right: 0.5rem;
 }
 
 .region-filter select {
-  padding: 8px;
-  min-width: 200px;
-}
-
-/* 🌐 Full-width stock overview section */
-.stock-overview {
-  max-width: 1200px;
-  margin: 2rem auto 0 auto;
-  padding: 2rem;
-  background-color: #fff;
-  box-sizing: border-box;
-  border-top: 1px solid #eee;
-}
-
-/* 🏢 Full-width warehouse overview with border */
-.warehouse-section {
-  max-width: 1200px;
-  margin: 2rem auto 0 auto;
-  padding: 2rem;
-  background-color: #fff;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
   border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
 }
