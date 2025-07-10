@@ -1,0 +1,95 @@
+/* 🌐 Inventory Table Container */
+.inventory-section {
+  background-color: var(--bg-main, #fffdf8);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: var(--font-family, 'Segoe UI', sans-serif);
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+
+/* 📋 Heading */
+.inventory-section h3 {
+  color: var(--text-primary, #0f172a);
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
+}
+
+/* 🔍 Search + Table Group */
+.search-and-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inventory-search {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1rem;
+}
+
+/* 📦 Stock Table */
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.stock-table th {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.stock-table input[type="number"] {
+  width: 80px;
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 768px) {
+  .stock-table thead {
+    display: none;
+  }
+
+  .stock-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .stock-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: none;
+  }
+
+  .stock-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #4b5563;
+    flex: 1;
+    margin-right: 1rem;
+  }
+
+  .stock-table td:last-child {
+    border-bottom: none;
+  }
+}

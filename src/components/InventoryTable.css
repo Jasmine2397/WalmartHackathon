@@ -1,82 +1,100 @@
-/* 📦 Outer inventory card */
+/* 📦 Inventory Section */
 .inventory-section {
   padding: 1.5rem 2rem;
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  max-width: 960px;
-  margin: 2rem auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  max-width: 1100px;
+  margin: 2.5rem auto;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  border: 1.5px solid #ffd700; /* Gold border */
 }
 
-/* 📌 Header */
+/* 📌 Section Heading */
 .inventory-section h3 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #001f3f; /* Navy */
+  font-weight: 600;
+  border-bottom: 2px solid #ffd700; /* Golden underline */
+  display: inline-block;
+  padding-bottom: 0.3rem;
 }
 
-/* 🔍 Search + Table wrapper */
+/* 🔍 Search + Table Wrapper */
 .search-and-table {
   width: 100%;
 }
 
-/* 🔍 Aligned search input */
+/* 🔍 Search Field */
 .inventory-search {
   width: 100%;
-  padding: 0.6rem 0.9rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background-color: #f0f8ff; /* Azure tint */
   font-size: 0.95rem;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .inventory-search:focus {
-  border-color: #0078D4;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
   outline: none;
 }
 
-/* 🧾 Stock table styling */
+/* 🧾 Table Styling */
 .stock-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
-.stock-table th,
-.stock-table td {
-  padding: 0.8rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e0e0e0;
-}
-
+/* Table Head */
 .stock-table th {
-  background-color: #0078D4;
-  color: #fff;
+  background-color: #001f3f; /* Navy */
+  color: #ffd700; /* Gold */
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #ccc;
 }
 
+/* Table Body Cells */
 .stock-table td {
-  font-size: 0.9rem;
-  color: #333;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  color: #0f172a;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-/* 📝 Editable quantity field */
+/* Editable Quantity Field */
 .stock-table input[type="number"] {
   width: 60px;
-  padding: 0.3rem;
+  padding: 0.4rem;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 0.85rem;
   text-align: center;
+  transition: border-color 0.3s ease;
 }
 
-/* 📱 Mobile Responsiveness */
+.stock-table input[type="number"]:focus {
+  border-color: #ffd700;
+  outline: none;
+}
+
+/* Empty State Row */
+.stock-table td[colspan="4"] {
+  color: #64748b;
+  font-style: italic;
+}
+
+/* 📱 Mobile Responsive */
 @media screen and (max-width: 768px) {
   .inventory-section {
     padding: 1rem;

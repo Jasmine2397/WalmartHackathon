@@ -3,6 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell
 } from 'recharts';
+import './WarehouseOverview.css'; // ✅ CSS file for styles
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6384', '#36A2EB'];
 
@@ -11,6 +12,7 @@ const WarehouseOverview = () => {
   const [selectedId, setSelectedId] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
 
+  // 📡 Fetch Warehouse Overview Data
   const fetchWarehouseOverview = async () => {
     try {
       const response = await fetch('/api/storage/overview');
@@ -26,15 +28,14 @@ const WarehouseOverview = () => {
     fetchWarehouseOverview();
   }, []);
 
-  // 🧭 Get region options
+  // 🌍 Region Filtering
   const regions = [...new Set(overviewData.map(wh => wh.region))];
 
-  // 🔍 Filter warehouses by selected region
   const filteredData = selectedRegion
     ? overviewData.filter(wh => wh.region === selectedRegion)
     : overviewData;
 
-  // 📊 Prepare overall charts
+  // 📊 Chart Data
   const capacityData = filteredData.map(wh => ({
     name: wh.name,
     capacityUsed: wh.capacityUsed,
@@ -46,11 +47,10 @@ const WarehouseOverview = () => {
     value: wh.incomeEarned
   }));
 
-  // 📍 Drilldown for selected warehouse
   const selectedWarehouse = overviewData.find(wh => wh.id === selectedId);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="warehouse-overview">
       <h2>📦 Warehouse Overview</h2>
 
       {overviewData.length === 0 ? (
@@ -58,13 +58,12 @@ const WarehouseOverview = () => {
       ) : (
         <>
           {/* 🗺 Region Filter */}
-          <div style={{ marginBottom: '30px' }}>
+          <div className="filter-group">
             <label htmlFor="regionSelect"><strong>Filter by Region:</strong></label>
             <select
               id="regionSelect"
               value={selectedRegion}
               onChange={(e) => setSelectedRegion(e.target.value)}
-              style={{ marginLeft: '10px', padding: '8px', minWidth: '200px' }}
             >
               <option value="">-- All Regions --</option>
               {regions.map((region) => (
@@ -74,13 +73,12 @@ const WarehouseOverview = () => {
           </div>
 
           {/* 🔍 Drilldown Dropdown */}
-          <div style={{ marginBottom: '30px' }}>
+          <div className="filter-group">
             <label htmlFor="warehouseSelect"><strong>Select a Warehouse:</strong></label>
             <select
               id="warehouseSelect"
               value={selectedId}
               onChange={(e) => setSelectedId(e.target.value)}
-              style={{ marginLeft: '10px', padding: '8px', minWidth: '200px' }}
             >
               <option value="">-- Choose --</option>
               {filteredData.map((wh) => (
@@ -90,7 +88,7 @@ const WarehouseOverview = () => {
           </div>
 
           {/* 🏗 Overall Capacity Comparison */}
-          <div style={{ marginBottom: '50px' }}>
+          <div className="chart-container">
             <h3>🏗 Overall Capacity Comparison</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={capacityData}>
@@ -105,7 +103,7 @@ const WarehouseOverview = () => {
           </div>
 
           {/* 💰 Income Distribution */}
-          <div style={{ marginBottom: '50px' }}>
+          <div className="chart-container">
             <h3>💰 Income Distribution by Warehouse</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -128,7 +126,7 @@ const WarehouseOverview = () => {
 
           {/* 📍 Selected Warehouse Detail View */}
           {selectedWarehouse && (
-            <div style={{ marginTop: '30px' }}>
+            <div className="drilldown">
               <h3>📍 {selectedWarehouse.name} Details</h3>
 
               <ResponsiveContainer width="100%" height={250}>

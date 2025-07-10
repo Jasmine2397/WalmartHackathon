@@ -132,14 +132,14 @@ function InventoryPages() {
           </form>
         </div>
 
-        <div className="card">
-          <h3 className="section-heading">📈 AI Demand Forecast</h3>
+        <div className="card demand-container">
+          <h3 className="section-heading">📈 Demand Forecast</h3>
           <DemandForecast />
         </div>
       </div>
 
       {regions.length > 0 && (
-        <div className="region-filter">
+        <div className="region-filter full-width">
           <label><strong>Filter by Region:</strong></label>{' '}
           <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
             <option value="">All Regions</option>
@@ -156,7 +156,6 @@ function InventoryPages() {
       </div>
 
       <div className="card full-width">
-        <h3 className="section-heading">🏢 Warehouse Overview</h3>
         <WarehouseOverview />
       </div>
     </div>
