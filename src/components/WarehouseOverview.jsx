@@ -3,61 +3,55 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell
 } from 'recharts';
-import './WarehouseOverview.css'; // ✅ CSS file for styles
+import './WarehouseOverview.css';
+
+import mockWarehouseData from '../mock/mockWarehouseData'; // ✅ Clean import
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6384', '#36A2EB'];
 
-const WarehouseOverview = () => {
+function WarehouseOverview() {
   const [overviewData, setOverviewData] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
 
-  // 📡 Fetch Warehouse Overview Data
-  const fetchWarehouseOverview = async () => {
-    try {
-      const response = await fetch('/api/storage/overview');
-      if (!response.ok) throw new Error('Fetch failed');
-      const result = await response.json();
-      setOverviewData(result.data.overview);
-    } catch (err) {
-      console.error('Error fetching warehouse overview:', err);
-    }
-  };
-
   useEffect(() => {
-    fetchWarehouseOverview();
+    const dataWithIds = mockWarehouseData.map((wh, idx) => ({
+      ...wh,
+      _id: String(idx + 1)
+    }));
+    console.log('✅ Loaded Warehouse Data:', dataWithIds);
+    setOverviewData(dataWithIds);
   }, []);
 
-  // 🌍 Region Filtering
   const regions = [...new Set(overviewData.map(wh => wh.region))];
 
   const filteredData = selectedRegion
     ? overviewData.filter(wh => wh.region === selectedRegion)
     : overviewData;
 
-  // 📊 Chart Data
   const capacityData = filteredData.map(wh => ({
     name: wh.name,
-    capacityUsed: wh.capacityUsed,
-    totalCapacity: wh.totalCapacity
+    capacityUsed: wh.capacityUsed ?? 0,
+    totalCapacity: wh.totalCapacity ?? 0
   }));
 
   const incomeData = filteredData.map(wh => ({
     name: wh.name,
-    value: wh.incomeEarned
+    value: wh.incomeEarned ?? 0
   }));
 
-  const selectedWarehouse = overviewData.find(wh => wh.id === selectedId);
+  const selectedWarehouse = overviewData.find(wh => wh._id === selectedId);
 
   return (
     <div className="warehouse-overview">
       <h2>📦 Warehouse Overview</h2>
 
       {overviewData.length === 0 ? (
-        <p>Loading data...</p>
+        <p>Loading data... ⏳</p>
+      ) : filteredData.length === 0 ? (
+        <p>😕 No warehouses found in selected region.</p>
       ) : (
         <>
-          {/* 🗺 Region Filter */}
           <div className="filter-group">
             <label htmlFor="regionSelect"><strong>Filter by Region:</strong></label>
             <select
@@ -66,13 +60,12 @@ const WarehouseOverview = () => {
               onChange={(e) => setSelectedRegion(e.target.value)}
             >
               <option value="">-- All Regions --</option>
-              {regions.map((region) => (
+              {regions.map(region => (
                 <option key={region} value={region}>{region}</option>
               ))}
             </select>
           </div>
 
-          {/* 🔍 Drilldown Dropdown */}
           <div className="filter-group">
             <label htmlFor="warehouseSelect"><strong>Select a Warehouse:</strong></label>
             <select
@@ -81,13 +74,14 @@ const WarehouseOverview = () => {
               onChange={(e) => setSelectedId(e.target.value)}
             >
               <option value="">-- Choose --</option>
-              {filteredData.map((wh) => (
-                <option key={wh.id} value={wh.id}>{wh.name}</option>
+              {filteredData.map(wh => (
+                <option key={wh._id} value={wh._id}>
+                  {wh.name}
+                </option>
               ))}
             </select>
           </div>
 
-          {/* 🏗 Overall Capacity Comparison */}
           <div className="chart-container">
             <h3>🏗 Overall Capacity Comparison</h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -102,7 +96,6 @@ const WarehouseOverview = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* 💰 Income Distribution */}
           <div className="chart-container">
             <h3>💰 Income Distribution by Warehouse</h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -124,13 +117,16 @@ const WarehouseOverview = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* 📍 Selected Warehouse Detail View */}
           {selectedWarehouse && (
             <div className="drilldown">
               <h3>📍 {selectedWarehouse.name} Details</h3>
 
               <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={[selectedWarehouse]}>
+                <BarChart data={[{
+                  name: selectedWarehouse.name,
+                  capacityUsed: selectedWarehouse.capacityUsed ?? 0,
+                  totalCapacity: selectedWarehouse.totalCapacity ?? 0
+                }]}>
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
@@ -143,7 +139,10 @@ const WarehouseOverview = () => {
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
                   <Pie
-                    data={[{ name: 'Income', value: selectedWarehouse.incomeEarned }]}
+                    data={[{
+                      name: 'Income',
+                      value: selectedWarehouse.incomeEarned ?? 0
+                    }]}
                     dataKey="value"
                     nameKey="name"
                     outerRadius={80}
@@ -161,6 +160,6 @@ const WarehouseOverview = () => {
       )}
     </div>
   );
-};
+}
 
 export default WarehouseOverview;

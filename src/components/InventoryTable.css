@@ -62,6 +62,7 @@
   font-size: 0.92rem;
   padding: 0.9rem 1rem;
   border-bottom: 1px solid #ccc;
+  white-space: nowrap;
 }
 
 /* Table Body Cells */
@@ -70,6 +71,7 @@
   font-size: 0.95rem;
   color: #0f172a;
   border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
 }
 
 /* Editable Quantity Field */
@@ -88,10 +90,19 @@
   outline: none;
 }
 
+/* 💰 Income Cell Style */
+.stock-table td:nth-child(8) {
+  color: #228B22; /* Forest Green for income */
+  font-weight: 500;
+}
+
 /* Empty State Row */
-.stock-table td[colspan="4"] {
+.stock-table td[colspan="4"],
+.stock-table td[colspan="8"] {
   color: #64748b;
   font-style: italic;
+  text-align: center;
+  padding: 1rem;
 }
 
 /* 📱 Mobile Responsive */
@@ -103,9 +114,14 @@
   .stock-table th,
   .stock-table td {
     padding: 0.6rem;
+    font-size: 0.85rem;
   }
 
   .stock-table input[type="number"] {
     width: 100%;
+  }
+
+  .inventory-search {
+    font-size: 0.9rem;
   }
 }

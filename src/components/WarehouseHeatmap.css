@@ -1,18 +1,76 @@
-.heatmap-section {
-  background-color: #fff;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+/* 🗺️ Heatmap Container */
+.warehouse-heatmap {
+  background-color: var(--bg-main, #fff);
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  font-family: var(--font-family, 'Segoe UI', sans-serif);
+}
+
+/* 📌 Heading */
+.warehouse-heatmap h3 {
+  font-size: 1.6rem;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* 🧩 Grid Layout */
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+/* 🧱 Zone Block */
+.zone {
+  padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  color: #1e293b;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  transition: transform 0.2s ease;
 }
 
-.heatmap-section h4 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: #333;
+.zone:hover {
+  transform: translateY(-2px);
 }
 
-.heatmap-section p {
-  color: #666;
-  font-size: 0.95rem;
+/* 🔥 Intensity Coloring */
+.zone.low {
+  background-color: #e0f7fa;
+}
+
+.zone.medium {
+  background-color: #fff3cd;
+}
+
+.zone.high {
+  background-color: #ffd6d6;
+}
+
+/* 🧱 Labels */
+.zone strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* 📱 Responsive Touch */
+@media screen and (max-width: 768px) {
+  .warehouse-heatmap {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .heatmap-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .zone {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
 }

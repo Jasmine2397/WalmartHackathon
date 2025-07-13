@@ -3,6 +3,9 @@ import './InventoryPages.css';
 import InventoryTable from '../components/InventoryTable';
 import DemandForecast from '../components/DemandForecast';
 import WarehouseOverview from '../components/WarehouseOverview';
+import WarehouseHeatmap from '../components/WarehouseHeatmap';
+
+import mockWarehouseData from '../mock/mockWarehouseData';
 
 function InventoryPages() {
   const [items, setItems] = useState([]);
@@ -11,58 +14,37 @@ function InventoryPages() {
     name: '',
     quantity: '',
     category: '',
-    supplier: '',
-    warehouse: ''
+    supplier: ''
   });
   const [selectedRegion, setSelectedRegion] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/v1/inventory')
-      .then((res) => res.json())
-      .then((data) => {
-        const inventoryData = Array.isArray(data) ? data : data.inventories || [];
-        setItems(inventoryData);
-      })
-      .catch(() => setItems([]));
-
-    fetch('/api/storage/overview')
-      .then((res) => res.json())
-      .then((data) => {
-        const overview = data.data.overview || [];
-        const sorted = [...overview].sort((a, b) => {
-          const aUsage = a.totalCapacity ? a.capacityUsed / a.totalCapacity : 0;
-          const bUsage = b.totalCapacity ? b.capacityUsed / b.totalCapacity : 0;
-          return aUsage - bUsage;
-        });
-        setWarehouseList(sorted);
-      })
-      .catch(() => setWarehouseList([]));
+    const dataWithIds = mockWarehouseData.map((wh, idx) => ({
+      ...wh,
+      _id: String(idx + 1)
+    }));
+    setWarehouseList(dataWithIds);
   }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch('http://localhost:5000/api/v1/inventory', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          quantity: parseInt(form.quantity),
-          category: form.category || 'general',
-          supplier: form.supplier || 'N/A',
-          warehouse: form.warehouse
-        })
-      });
-      const newItem = await res.json();
-      setItems((prev) => [...prev, newItem]);
-      setForm({ name: '', quantity: '', category: '', supplier: '', warehouse: '' });
-    } catch (err) {
-      console.error('Failed to add item:', err);
-    }
+    const newItemPayload = {
+      name: form.name,
+      quantity: parseInt(form.quantity),
+      category: form.category || 'general',
+      supplier: form.supplier || 'N/A'
+    };
+    setItems((prev) => [...prev, newItemPayload]);
+    setForm({
+      name: '',
+      quantity: '',
+      category: '',
+      supplier: ''
+    });
   };
 
   const regions = [...new Set(warehouseList.map((wh) => wh.region))];
@@ -74,7 +56,9 @@ function InventoryPages() {
     <div className="inventory-page">
       <div className="page-header">
         <h1>📦 Inventory Management</h1>
-        <p className="subheading">Track stock levels, optimize storage, and forecast demand intelligently.</p>
+        <p className="subheading">
+          Track stock levels, optimize storage, and forecast demand intelligently.
+        </p>
       </div>
 
       <div className="two-column-grid">
@@ -102,26 +86,6 @@ function InventoryPages() {
               value={form.category}
               onChange={handleChange}
             />
-            <select
-              name="warehouse"
-              value={form.warehouse}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Warehouse</option>
-              {filteredWarehouses.map((wh) => {
-                const utilization =
-                  wh.totalCapacity && wh.capacityUsed
-                    ? (wh.capacityUsed / wh.totalCapacity) * 100
-                    : 0;
-                const label = `${wh.name} (${wh.region}) – ${utilization.toFixed(0)}% used${utilization >= 100 ? ' 🚫' : ''}`;
-                return (
-                  <option key={wh.id} value={wh.id} disabled={utilization >= 100}>
-                    {label}
-                  </option>
-                );
-              })}
-            </select>
             <input
               name="supplier"
               placeholder="Supplier Name"
@@ -141,7 +105,10 @@ function InventoryPages() {
       {regions.length > 0 && (
         <div className="region-filter full-width">
           <label><strong>Filter by Region:</strong></label>{' '}
-          <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
+          <select
+            value={selectedRegion}
+            onChange={(e) => setSelectedRegion(e.target.value)}
+          >
             <option value="">All Regions</option>
             {regions.map((region) => (
               <option key={region} value={region}>{region}</option>
@@ -156,7 +123,14 @@ function InventoryPages() {
       </div>
 
       <div className="card full-width">
-        <WarehouseOverview />
+        {filteredWarehouses.length > 0 ? (
+          <>
+            <WarehouseOverview warehouseList={filteredWarehouses} />
+            <WarehouseHeatmap />
+          </>
+        ) : (
+          <p>No warehouse data available for this region 📭</p>
+        )}
       </div>
     </div>
   );

@@ -1,95 +1,87 @@
-/* 🌐 Inventory Table Container */
-.inventory-section {
+.warehouse-overview {
   background-color: var(--bg-main, #fffdf8);
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   font-family: var(--font-family, 'Segoe UI', sans-serif);
-  margin-top: 2rem;
-  overflow-x: auto;
+  margin: 2rem;
 }
 
-/* 📋 Heading */
-.inventory-section h3 {
+.warehouse-overview h2 {
+  font-size: 1.8rem;
   color: var(--text-primary, #0f172a);
-  margin-bottom: 1.2rem;
-  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-/* 🔍 Search + Table Group */
-.search-and-table {
+.filter-group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  margin-bottom: 1.2rem;
+  max-width: 320px;
 }
 
-.inventory-search {
-  padding: 0.6rem 1rem;
+.filter-group label {
+  font-weight: bold;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.filter-group select {
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  width: 100%;
-  max-width: 400px;
+}
+
+.chart-container {
+  margin: 2rem 0;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.chart-container h3 {
+  font-size: 1.3rem;
+  color: #1f2937;
   margin-bottom: 1rem;
 }
 
-/* 📦 Stock Table */
-.stock-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
+.drilldown {
+  margin-top: 3rem;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
 }
 
-.stock-table th,
-.stock-table td {
-  padding: 0.8rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+.drilldown h3 {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin-bottom: 1.2rem;
+  text-align: center;
 }
 
-.stock-table th {
-  background-color: #f3f4f6;
-  color: #374151;
-}
-
-.stock-table input[type="number"] {
-  width: 80px;
-  padding: 0.4rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* 📱 Responsive */
 @media screen and (max-width: 768px) {
-  .stock-table thead {
-    display: none;
+  .warehouse-overview {
+    padding: 1rem;
+    margin: 1rem;
   }
 
-  .stock-table tr {
-    display: block;
-    margin-bottom: 1rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+  .filter-group {
+    max-width: 100%;
+  }
+
+  .chart-container,
+  .drilldown {
     padding: 1rem;
   }
 
-  .stock-table td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: none;
-  }
-
-  .stock-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    color: #4b5563;
-    flex: 1;
-    margin-right: 1rem;
-  }
-
-  .stock-table td:last-child {
-    border-bottom: none;
+  .warehouse-overview h2,
+  .chart-container h3,
+  .drilldown h3 {
+    font-size: 1.2rem;
+    text-align: center;
   }
 }
