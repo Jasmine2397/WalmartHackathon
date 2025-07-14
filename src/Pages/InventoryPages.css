@@ -101,7 +101,6 @@
   margin-bottom: 1rem;
 }
 
-/* Inventory Form */
 .inventory-form {
   display: flex;
   flex-direction: column;
@@ -134,7 +133,6 @@
   background-color: #00306e;
 }
 
-/* Region Filter */
 .region-filter {
   text-align: center;
   margin: 1.5rem 0;
@@ -153,7 +151,6 @@
   font-size: 0.9rem;
 }
 
-/* Demand Forecast */
 .demand-container {
   padding: 1rem;
   background-color: #f3fbfd;
@@ -162,12 +159,15 @@
 }
 
 .chart-container {
-  height: 300px;
+  height: 400px;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 2.5rem auto;
 }
 
-/* Responsive Design */
+.chart-wrapper {
+  margin-bottom: 2rem;
+}
+
 @media screen and (max-width: 768px) {
   .inventory-page {
     padding: 2rem 1rem;

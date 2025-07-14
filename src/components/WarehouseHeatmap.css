@@ -2,10 +2,11 @@
 .warehouse-heatmap {
   background-color: var(--bg-main, #fff);
   padding: 2rem;
-  margin: 2rem;
+  margin: 2rem auto;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   font-family: var(--font-family, 'Segoe UI', sans-serif);
+  max-width: 1200px;
 }
 
 /* 📌 Heading */
@@ -14,6 +15,8 @@
   color: #1f2937;
   margin-bottom: 1.5rem;
   text-align: center;
+  border-bottom: 2px solid var(--accent-gold);
+  padding-bottom: 0.5rem;
 }
 
 /* 🧩 Grid Layout */
@@ -21,6 +24,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
+  padding: 1rem;
 }
 
 /* 🧱 Zone Block */
@@ -32,6 +36,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   text-align: center;
   transition: transform 0.2s ease;
+  background-clip: padding-box;
 }
 
 .zone:hover {
@@ -67,6 +72,7 @@
 
   .heatmap-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    padding: 0.5rem;
   }
 
   .zone {

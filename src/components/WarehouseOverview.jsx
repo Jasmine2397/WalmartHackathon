@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
-  PieChart, Pie, Cell
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, Legend
 } from 'recharts';
 import './WarehouseOverview.css';
 
-import mockWarehouseData from '../mock/mockWarehouseData'; // ✅ Clean import
+import mockWarehouseData from '../mock/mockWarehouseData';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6384', '#36A2EB'];
 
@@ -19,7 +19,6 @@ function WarehouseOverview() {
       ...wh,
       _id: String(idx + 1)
     }));
-    console.log('✅ Loaded Warehouse Data:', dataWithIds);
     setOverviewData(dataWithIds);
   }, []);
 
@@ -82,39 +81,47 @@ function WarehouseOverview() {
             </select>
           </div>
 
-          <div className="chart-container">
-            <h3>🏗 Overall Capacity Comparison</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={capacityData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="capacityUsed" fill="#8884d8" name="Used Capacity" />
-                <Bar dataKey="totalCapacity" fill="#82ca9d" name="Total Capacity" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <div className="chart-wrapper">
+            {/* Capacity Bar Chart */}
+            <div className="chart-container">
+              <h3>🏗 Overall Capacity Comparison</h3>
+              <ResponsiveContainer width="100%" height={340}>
+                <BarChart data={capacityData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="capacityUsed" fill="#8884d8" name="Used Capacity" />
+                  <Bar dataKey="totalCapacity" fill="#82ca9d" name="Total Capacity" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="chart-legend">
+              <Legend />
+            </div>
 
-          <div className="chart-container">
-            <h3>💰 Income Distribution by Warehouse</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={incomeData}
-                  dataKey="value"
-                  nameKey="name"
-                  outerRadius={100}
-                  label
-                >
-                  {incomeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+            {/* Income Pie Chart */}
+            <div className="chart-container">
+              <h3>💰 Income Distribution by Warehouse</h3>
+              <ResponsiveContainer width="100%" height={340}>
+                <PieChart>
+                  <Pie
+                    data={incomeData}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={100}
+                    label
+                  >
+                    {incomeData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="chart-legend">
+              <Legend />
+            </div>
           </div>
 
           {selectedWarehouse && (

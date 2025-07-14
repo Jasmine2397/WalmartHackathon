@@ -37,11 +37,11 @@ const DeliveryPage = () => {
 
       {/* ETA + Shipment Table */}
       <div className="two-column-grid">
-        <div className="card">
-          <ETABox />
+        <div className="card eta-card">
+          <ETABox routeCoords={routeCoords} />
         </div>
-        <div className="card">
-          <ShipmentManager />
+        <div className="card assignment-card">
+          <ShipmentManager routeCoords={routeCoords} />
         </div>
       </div>
 

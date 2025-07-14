@@ -1,7 +1,31 @@
 .delivery-page {
   padding: 2rem;
-  background-color: #f9fafe;
+  background-color: var(--bg-main, #fdf8f3);
   min-height: 100vh;
+  font-family: var(--font-family, 'Inter', 'Segoe UI', sans-serif);
+  position: relative;
+  z-index: 0;
+}
+
+/* 🎞️ Subtle Grid Overlay */
+.delivery-page::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -1;
+  animation: slow-pan 40s linear infinite;
+  opacity: 0.5; /* Adjust for visibility */
+}
+
+/* 🎞️ Animation for grid movement */
+@keyframes slow-pan {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
 }
 
 /* Header Styling */
@@ -83,3 +107,4 @@
     grid-template-columns: 1fr;
   }
 }
+
